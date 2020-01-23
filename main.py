@@ -48,8 +48,9 @@ def handle_message(event):
 def handle_message(event):
 
     word = event.message.text
-    poke = pd.read_csv('./poke.csv')
-    result = poke['name'][word]
+    poke_origin = pd.read_csv('./poke.csv')
+    poke = poke_origin.drop(["Unnamed: 0"], axis=1)
+    result = poke[poke['name'] == f'{word},1,001']
 
     line_bot_api.reply_message(
         event.reply_token,
