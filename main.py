@@ -1,5 +1,5 @@
 import os
-from argparse import ArgumentParser
+import pandas as pd
 
 from flask import Flask, request, abort
 from linebot import (
@@ -36,11 +36,25 @@ def callback():
     return 'OK'
 
 
+"""
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
+"""
+
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+
+    word = event.message.text
+    poke = pd.read_csv('./poke.csv')
+    result = poke['name'][word]
+
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=result)
+    )
 
 
 if __name__ == "__main__":
