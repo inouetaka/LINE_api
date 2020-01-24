@@ -51,14 +51,14 @@ def handle_message(event):
     poke = pd.read_csv('./poke.csv', index_col=0)
     result = poke[poke['name'] == f'{word},1,001']
     result = result.to_json(force_ascii=False)
-    #type_ = result['type']
-    #file = {"imageFile": open(type_, "rb")}
+    type_ = result['type']
+    file = {"imageFile": open(type_, "rb")}
 
 
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=result)
-        #ImageSendMessage(original_content_url=file)
+        #TextSendMessage(text=result)
+        ImageSendMessage(original_content_url=file)
     )
 
 
