@@ -9,5 +9,7 @@ output['name'] = result["name"]
 output['type'] = result['type']
 output['img'] = result['img']
 
+output = output.to_json(force_ascii=False)
+
 print(result)
 
