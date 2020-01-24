@@ -49,7 +49,7 @@ def handle_message(event):
 
     word = event.message.text
     poke = pd.read_csv('./poke.csv', index_col=0)
-    result = poke[poke['name'] == f'{word},1,001']
+    result = poke[poke['name'] == word]
     result = result.to_json(force_ascii=False)
 
 
