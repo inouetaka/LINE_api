@@ -9,7 +9,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage
+    MessageEvent, TextMessage, TextSendMessage, ImageMessage, ImageSendMessage
 )
 
 app = Flask(__name__)
@@ -52,10 +52,14 @@ def handle_message(event):
     poke = poke_origin.drop(["Unnamed: 0"], axis=1)
     result = poke[poke['name'] == f'{word},1,001']
     result = result.to_json(force_ascii=False)
+    type_ = result['type']
+    file = {"imageFile": open(type_, "rb")}
+
 
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=result)
+        TextSendMessage(text=result),
+        ImageSendMessage(original_content_url=file)
     )
 
 
