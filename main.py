@@ -1,5 +1,6 @@
 import os
-import pandas as pd
+import sqlite3
+
 
 from flask import Flask, request, abort
 from linebot import (
@@ -48,18 +49,22 @@ def handle_message(event):
 def handle_message(event):
 
     word = event.message.text
-    poke = pd.read_csv('./poke.csv', index_col=0)
-    result = poke[poke.name == word]
+    conn = sqlite3.connect("test.db")
+    c = conn.cursor()
 
-    logs = f"受け取ったメッセージ:{word}\n参照結果:{poke}\n検索結果{result}"
-    print(logs)
-    print(f"画像:{result['type']}")
+    sql = 'SELECT * FROM pokes WHERE name = (?)'
+    run = (word)
+    c.execute(sql, run)
+    result = c.fetchone()
+
+
+    conn.close()
 
     res = ImageSendMessage(
-        original_content_url = result['type'],
-        preview_image_url = result['type']
+        original_content_url = f"{'https://' + result[0][2]}",
+        preview_image_url = f"{'https://' + result[0][2]}"
     )
-    res_message = f"図鑑番号:{result['number']}\n名前:{result['name']}"
+    res_message = f"図鑑番号:{result[0][0]}\n名前:{result[0][1]}"
 
     line_bot_api.reply_message(
         event.reply_token,
