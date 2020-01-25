@@ -53,11 +53,11 @@ def handle_message(event):
 
     logs = f"受け取ったメッセージ:{word}\n参照結果:{poke}\n検索結果{result}"
     print(logs)
-    print(f"画像:{result['type'][0]}")
+    print(f"画像:{result['type']}")
 
     res = ImageSendMessage(
-        original_content_url = result['type'][0],
-        preview_image_url = result['type'][0]
+        original_content_url = result['type'],
+        preview_image_url = result['type']
     )
     res_message = f"図鑑番号:{result['number'][0]}\n名前:{result['name'][0]}"
 
