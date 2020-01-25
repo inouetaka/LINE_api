@@ -53,9 +53,9 @@ def handle_message(event):
     c = conn.cursor()
 
     sql = 'SELECT * FROM pokes WHERE name = (?)'
-    run = (word)
+    run = (word,)
     c.execute(sql, run)
-    result = c.fetchone()
+    result = c.fetchall()
 
 
     conn.close()

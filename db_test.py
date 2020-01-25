@@ -25,8 +25,10 @@ conn.close()
 conn = sqlite3.connect("test.db")
 c = conn.cursor()
 
-c.execute('SELECT * FROM pokes WHERE name = "サルノリ"')
-row = c.fetchall()
-print(row[0][1])
+sql = 'SELECT * FROM pokes WHERE name = (?)'
+run = ("サルノリ",)
+c.execute(sql, run)
+result = c.fetchall()
+print(result[0][1])
 
 conn.close()
