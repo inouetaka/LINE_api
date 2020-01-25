@@ -50,12 +50,12 @@ def handle_message(event):
     word = event.message.text
     poke = pd.read_csv('./poke.csv', index_col=0)
     result = poke[poke['name'] == word]
-    res_message = f"ポケモン画像:{result['type'][0]}\n図鑑番号:{result['number'][0]}\n名前:{result['name'][0]}"
 
     res = ImageSendMessage(
         original_content_url = result['type'][0],
         preview_image_url = result['type'][0]
     )
+    res_message = f"ポケモン画像:{res}\n図鑑番号:{result['number'][0]}\n名前:{result['name'][0]}"
 
     line_bot_api.reply_message(
         event.reply_token,
