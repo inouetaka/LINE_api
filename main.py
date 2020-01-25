@@ -55,12 +55,12 @@ def handle_message(event):
         original_content_url = result['type'][0],
         preview_image_url = result['type'][0]
     )
-    res_message = f"ポケモン画像:{res}\n図鑑番号:{result['number'][0]}\n名前:{result['name'][0]}"
+    res_message = f"図鑑番号:{result['number'][0]}\n名前:{result['name'][0]}"
 
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=res_message)
-        #res
+        TextSendMessage(text=res_message),
+        res
     )
 
 if __name__ == "__main__":
