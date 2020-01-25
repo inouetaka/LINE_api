@@ -51,8 +51,9 @@ def handle_message(event):
     poke = pd.read_csv('./poke.csv', index_col=0)
     result = poke[poke['name'] == word]
 
-    logs = f"受け取ったメッセージ:{word}\n参照結果:{poke}"
+    logs = f"受け取ったメッセージ:{word}\n参照結果:{poke}\n検索結果{result}"
     print(logs)
+    print(f"画像:{result['type'][0]}")
 
     res = ImageSendMessage(
         original_content_url = result['type'][0],
