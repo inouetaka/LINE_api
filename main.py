@@ -49,7 +49,7 @@ def handle_message(event):
 
     word = event.message.text
     poke = pd.read_csv('./poke.csv', index_col=0)
-    result = poke[poke['name'] == word]
+    result = poke[poke.name == word]
 
     logs = f"受け取ったメッセージ:{word}\n参照結果:{poke}\n検索結果{result}"
     print(logs)
@@ -59,7 +59,7 @@ def handle_message(event):
         original_content_url = result['type'],
         preview_image_url = result['type']
     )
-    res_message = f"図鑑番号:{result['number'][0]}\n名前:{result['name'][0]}"
+    res_message = f"図鑑番号:{result['number']}\n名前:{result['name']}"
 
     line_bot_api.reply_message(
         event.reply_token,
