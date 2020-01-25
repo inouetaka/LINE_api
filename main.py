@@ -52,6 +52,7 @@ def handle_message(event):
     result = poke[poke['name'] == word]
 
     logs = f"受け取ったメッセージ:{word}\n参照結果:{poke}"
+    print(logs)
 
     res = ImageSendMessage(
         original_content_url = result['type'][0],
