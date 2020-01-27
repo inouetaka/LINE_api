@@ -1,2 +1,7 @@
 /venv
 .idea/
+
+#ファイル
+db_test.py
+test.db
+test.py
